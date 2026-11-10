@@ -1,5 +1,7 @@
 # Hyprland Dotfiles v2
 
+|-Inspirado en Nothing os/glyph-|
+
 Una configuración de **Hyprland** ligera, limpia y transparente para **Arch Linux / CachyOS**, optimizada para bajo consumo de recursos (~1.2 GB de RAM en reposo).
 
 Este repositorio ya viene organizado siguiendo la estructura real de `~/.config/` para que puedas instalarlo de forma automática con `install.sh` o simplemente explorar y copiar las carpetas que más te gusten.
