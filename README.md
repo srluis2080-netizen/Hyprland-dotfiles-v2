@@ -9,13 +9,21 @@ Este repositorio ya viene organizado siguiendo la estructura real de `~/.config/
 ## Capturas de pantalla
 
 ### Fastfetch, Kitty y Waybar
-<img width="1600" height="900" alt="Escritorio Hyprland" src="https://github.com" />
+<img width="1600" height="900" alt="image" src="https://github.com/user-attachments/assets/ce52af56-c210-4251-a69e-4619312ff454" />
+
 
 ### Barra de estado
-<img width="1600" height="58" alt="Barra de estado" src="https://github.com" />
+<img width="1600" height="54" alt="image" src="https://github.com/user-attachments/assets/d00bd9a9-0776-4da5-9e43-89635133fd09" />
+
 
 ### Centro de notificaciones (SwayNC)
-<img width="454" height="762" alt="SwayNC" src="https://github.com" />
+<img width="518" height="717" alt="image" src="https://github.com/user-attachments/assets/a119dda4-9752-4333-89ea-8bfd376c69fd" />
+
+### Launcher de apps (Fuzzel)
+<img width="1600" height="900" alt="fuzzel_captura" src="https://github.com/user-attachments/assets/5c93a5c9-a2c9-4f9f-933f-1b5452e7251d" />
+
+### Pantalla de bloqueo (Hyprlock)
+<img width="1600" height="900" alt="hyprlock_captura" src="https://github.com/user-attachments/assets/e94ca379-8476-46c3-bbbc-a650bd87089c" />
 
 ---
 
