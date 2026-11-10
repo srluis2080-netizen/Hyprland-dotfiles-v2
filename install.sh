@@ -49,6 +49,15 @@ echo -e "\n${AMARILLO}[3/3] Copiando nuevas configuraciones a ~/.config...${NC}"
 mkdir -p "$HOME/.config"
 cp -rf .config/* "$HOME/.config/"
 
+# 4. Copiar scripts personales y darles permisos de ejecución
+if [ -d "scripts" ]; then
+    echo -e "\n${AMARILLO}[4/4] Instalando scripts personales en ~/.local/bin...${NC}"
+    mkdir -p "$HOME/.local/bin"
+    cp -rf scripts/* "$HOME/.local/bin/"
+    chmod +x "$HOME/.local/bin/"*
+fi
+
+
 # Actualizar caché de fuentes si copiaste la carpeta fonts
 if [ -d "$HOME/.config/fonts" ]; then
     fc-cache -fv > /dev/null 2>&1
