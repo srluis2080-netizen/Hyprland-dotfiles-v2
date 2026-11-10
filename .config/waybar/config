@@ -1,0 +1,198 @@
+// -*- mode: jsonc -*-
+{
+    "layer": "top", // Waybar at top layer
+    "position": "top", // Waybar position (top|bottom|left|right)
+    "height": 20, // Waybar height (to be removed for auto height)
+    //"width": 1600, // Waybar width
+    "spacing": 4, // Gaps between modules (4px)
+   
+
+    // Choose the order of the modules
+    "modules-left": [
+        "hyprland/workspaces",
+        "user",
+        "bluetooth",
+        "tray"
+    ],
+    "modules-center": [
+       "group/reloj-notification"
+    ],
+    "modules-right": [
+        "power-profiles-daemon",
+        "pulseaudio",
+        "cpu",
+        "memory",
+        "custom/nightlight",
+        "backlight",
+        "temperature",
+        "custom/power"
+    ],
+      
+    // Modules configuration
+
+        "power-profiles-daemon": {
+            "format": "{icon} ",
+            "tooltip-format": "Perfil de energía: {profile}\nFuente: {driver}",
+            "tooltip": true,
+            "format-icons": {
+            "default": "",
+            "performance": "",
+            "balanced": "",
+            "power-saver": ""
+  }
+},
+
+"group/reloj-notification": {
+    "orientation": "horizontal",
+    "modules": [
+        "clock",
+        "custom/notification"
+    ]
+},
+
+"custom/notification": {
+    "tooltip": false,
+    "format": "  {} {icon}  ",
+    "format-icons": {
+      "notification": "<span foreground='red'><sup><sup>•</sup></sup></span>",
+      "none": "",
+      "dnd-notification": "<span foreground='red'><sup><sup>•</sup></sup></span>",
+      "dnd-none": "",
+      "inhibited-notification": "<span foreground='red'><sup><sup>•</sup></sup></span>",
+      "inhibited-none": "",
+      "dnd-inhibited-notification": "<span foreground='red'><sup><sup>•</sup></sup></span>",
+      "dnd-inhibited-none": ""
+    },
+
+    "return-type": "json",
+    "exec-if": "which swaync-client",
+    "exec": "swaync-client -swb",
+    "on-click": "swaync-client -t -sw",
+    "on-click-right": "swaync-client -d -sw",
+    "escape": true
+},
+
+    "custom/nightlight": {
+        "format": "󰛨",
+        "on-click": "pgrep hyprsunset && killall hyprsunset || hyprsunset --temperature 3500",
+        "tooltip": false
+    },
+
+    "hyprland/workspaces": {
+         "disable-scroll": true,
+         "all-outputs": true,
+         "warp-on-scroll": false,
+         "format": "{name}",
+         "format-icons": {
+             "1": "",
+             "2": "",
+             "3": "",
+             "4": "",
+             "5": "",
+             "urgent": "",
+             "focused": "",
+             "default": ""
+         }
+     },
+    "sway/mode": {
+        "format": "<span style=\"italic\">{}</span>"
+    },
+    "sway/scratchpad": {
+        "format": "{icon} {count}",
+        "show-empty": false,
+        "format-icons": ["", ""],
+        "tooltip": true,
+        "tooltip-format": "{app}: {title}"
+    },
+    "tray": {
+        // "icon-size": 21,
+        "spacing": 10,
+        // "icons": {
+        //   "blueman": "bluetooth",
+        //   "TelegramDesktop": "$HOME/.local/share/icons/hicolor/16x16/apps/telegram.png"
+        // }
+    },
+    "clock": {
+        // "timezone": "America/New_York",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "format": "{:%I:%M:%S %p} ",
+        "format-alt": "{:%d-%m-%y}",
+        "interval": 1
+    },
+    "cpu": {
+        "format": "{usage}% ",
+        "tooltip": true,
+        "interval": 3
+    },
+    "memory": {
+        "format": "{}% "
+    },
+    "temperature": {
+        "thermal-zone": 2,
+        "critical-threshold": 80,
+        "format": "{temperatureC}°C {icon}",
+        "format-icons": ["", "", "", "", ""],
+        "interval": 10
+    },
+    "power-profiles-daemon": {
+      "format": "{icon} ",
+      "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+      "tooltip": true,
+      "format-icons": {
+        "default": "",
+        "performance": "",
+        "balanced": "",
+        "power-saver": ""
+      }
+    },
+
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-bluetooth": " {volume}%",
+        "format-muted": "󰝟 Muted",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "default": ["", ""]
+    },
+    "on-click": "pavucontrol"
+},
+"custom/power": {
+    "format": "⏻",
+    "icon-size": 10,
+    "tooltip": false,
+    "menu": "on-click",
+    "menu-file": "/home/srluis2080/.config/waybar/power_menu.xml",
+    "menu-actions": {
+        "shutdown": "zenity --question --text='¿Seguro que quieres apagar?' --title='Salida' && systemctl poweroff -i",
+        "logout":"zenity --question --text='¿Seguro que quieres cerrar sesion?' --title='Salida' && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'",
+        "reboot": "zenity --question --text='¿Seguro que quieres reiniciar?' --title='Salida' && systemctl reboot",
+        "suspend": "zenity --question --text='¿Seguro que quieres suspender?' --title='Salida' && systemctl suspend",
+        "hibernate": "zenity --question --text='¿Seguro que quieres hibernar?' --title='Salida' && systemctl hibernate"          
+    }
+},
+    "bluetooth": {
+    "device-address": "86:7B:87:2B:62:F3",
+    "format": " {status}",
+    "format-connected": " {device_alias}",
+    "format-connected-battery": " {device_alias} {device_battery_percentage}%",
+    "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} conectados",
+    "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} conectados\n\n{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+    "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
+    "on-click": "blueman-manager"
+    
+    }
+},
+
+
+"user": {
+    "format": "<span color='#f5c2e7'>󰖟</span> {user} <span color='#6c7086'>|</span> 󱎫 {uptime:%d d %h h %m m}",
+    "interval": 60,
+    "height": 30,
+    "width": 30,
+    "icon": true
+}

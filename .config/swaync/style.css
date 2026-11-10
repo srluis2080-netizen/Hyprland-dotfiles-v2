@@ -1,0 +1,346 @@
+/* ============================================
+   SWAYNC — Blue crystal
+   ============================================ */
+
+@define-color bg #000000;
+@define-color fg #F2F2F2;
+@define-color fg_dim #8C8C8C;
+@define-color accent #D71921;
+@define-color surface #0E0E0E;
+@define-color surface2 #1A1A1A;
+@define-color overlay #2A2A2A;
+@define-color red #D71921;
+
+/* Opacidad traslúcida/cristal */
+@define-color bg_rgba rgba(0, 0, 0, 0.75);
+@define-color surface_rgba rgba(14, 14, 14, 0.60);
+
+/* Global Resets & Typography */
+* {
+  font-family: "Ndot 57", "Noto Sans CJK JP", sans-serif;
+  font-size: 17px;
+  font-weight: bold;
+  scrollbar-width: none;
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+/* ============================================
+    Floating notifications
+   ============================================ */
+
+.floating-notifications,
+.floating-notifications .notification-row,
+.floating-notifications .notification-background {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+.floating-notifications.background .notification-row .notification-background .notification {
+  background: alpha(@bg, 0.85);
+  border-radius: 20px;
+  border: 3px solid alpha(@accent, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5),
+              inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  margin: 8px 24px 8px 8px; /* Empujadas un poco más hacia adentro */
+  padding: 6px;
+}
+
+.floating-notifications.background .notification-row .notification-background .notification.critical {
+  background: alpha(@bg, 0.90);
+  border: 1px solid alpha(@red, 0.6);
+  box-shadow: 0 8px 32px alpha(@red, 0.25);
+}
+
+/* ── Control Center Window ───────────────────── */
+
+.control-center {
+  background: @bg_rgba;
+  border-radius: 16px;
+  border: 3px solid alpha(@accent, 0.16);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7),
+              inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  margin: 8px 16px 8px 8px;
+  padding: 8px;
+}
+
+/* ── Do Not Disturb ──────────────────────────── */
+
+.widget-dnd {
+  margin: 14px 16px 8px 16px;
+  padding: 10px 14px;
+  background: alpha(@surface, 0.5);
+  border-radius: 10px;
+  border: 5px solid alpha(@overlay, 0.22);
+  color: @fg;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.widget-dnd > switch {
+  background: alpha(@surface2, 0.8);
+  border-radius: 20px;
+  min-width: 44px;
+  min-height: 24px;
+  border: 1px solid alpha(@overlay, 0.3);
+}
+
+.widget-dnd > switch:checked {
+  background: alpha(@accent, 0.3);
+  border: 1px solid @accent;
+}
+
+.widget-dnd > switch slider {
+  background: @fg;
+  border-radius: 50%;
+  min-width: 18px;
+  min-height: 18px;
+  margin: 2px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.widget-dnd > switch:checked slider {
+  background: @accent;
+  box-shadow: 0 2px 8px alpha(@accent, 0.5);
+}
+
+/* ── Buttons Grid  ───── */
+
+.widget-buttons-grid {
+  margin: 8px 12px;
+  padding: 4px;
+  background: alpha(@bg, 0.4);
+  border-radius: 12px;
+}
+
+.widget-buttons-grid > flowbox > flowboxchild {
+  padding: 0;
+}
+
+.widget-buttons-grid button {
+  margin: 3px;
+  padding: 10px 12px;
+  background: alpha(@surface, 0.7);
+  color: @fg;
+  border-radius: 10px;
+  border: 1px solid alpha(@overlay, 0.22);
+  min-width: 60px;
+  min-height: 52px;
+}
+
+.widget-buttons-grid button label {
+  font-family: "JetBrainsMono Nerd Font Mono", "JetBrainsMono NF",
+               "Symbols Nerd Font Mono", monospace;
+  font-size: 22px;
+  color: @fg;
+}
+
+.widget-buttons-grid button:hover {
+  background: @accent;
+  color: @bg;
+  border-radius: 14px;
+}
+
+.widget-buttons-grid button:hover label {
+  color: @bg;
+}
+
+.widget-buttons-grid button.toggle:checked {
+  background: alpha(@accent, 0.2);
+  border: 1px solid @accent;
+  border-radius: 14px;
+  box-shadow: 0 0 12px alpha(@accent, 0.15);
+}
+
+.widget-buttons-grid button.toggle:checked label {
+  color: @accent;
+}
+
+/* AI Buttons */
+.widget-buttons-grid > flowbox > flowboxchild:nth-child(5) button {
+  background-image: url("file:///home/vhs/Imágenes/icons/gtp1.png");
+  background-size: 32px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.widget-buttons-grid > flowbox > flowboxchild:nth-child(6) button {
+  background-image: url("file:///home/vhs/Imágenes/icons/claude_tray.png");
+  background-size: 32px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.widget-buttons-grid > flowbox > flowboxchild:nth-child(7) button {
+  background-image: url("file:///home/vhs/Imágenes/icons/Gemini.svg");
+  background-size: 32px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.widget-buttons-grid > flowbox > flowboxchild:nth-child(8) button {
+  background-image: url("file:///home/vhs/Imágenes/icons/copilot.png");
+  background-size: 32px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.widget-buttons-grid > flowbox > flowboxchild:nth-child(n+5) button label {
+  color: transparent;
+}
+
+/* ── Deslizadores / Volume Slider ────────────── */
+
+.widget-volume,
+.widget-backlight,
+.widget-slider {
+  padding: 10px 14px;
+  margin: 4px 12px 8px 12px;
+  border-radius: 10px;
+  background: alpha(@surface, 0.5);
+  border: 1px solid alpha(@overlay, 0.2);
+  color: @fg;
+}
+
+.widget-volume label {
+  font-family: "JetBrainsMono Nerd Font Mono", monospace;
+  font-size: 16px;
+  color: @accent;
+  min-width: 20px;
+}
+
+.widget-volume trough,
+.widget-backlight trough,
+.widget-slider trough {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  min-height: 8px;
+  margin: 0 8px;
+}
+
+.widget-volume highlight,
+.widget-backlight highlight,
+.widget-slider highlight,
+.widget-volume slider,
+.widget-backlight slider,
+.widget-slider slider {
+  background: @accent;
+  border-radius: 8px;
+  min-height: 8px;
+}
+
+/* ── MPRIS Player ────────────────────────────── */
+
+.widget-mpris {
+  margin: 4px 12px 8px 12px;
+  border-radius: 12px;
+  border: 1px solid alpha(@overlay, 0.2);
+  background: alpha(@bg, 0.7);
+  padding-top: 10px;
+}
+
+.widget-mpris-title {
+  font-weight: 800;
+  font-size: 13px;
+  color: @fg;
+  margin: 8px 12px 2px 12px;
+}
+
+.widget-mpris-subtitle {
+  font-size: 11px;
+  color: @fg_dim;
+  margin: 0 12px 6px 12px;
+}
+
+.widget-mpris button {
+  background: alpha(@surface, 0.6);
+  border-radius: 50%;
+  padding: 6px;
+  margin: 4px;
+  color: @fg;
+  min-width: 28px;
+  min-height: 28px;
+}
+
+.widget-mpris button:hover {
+  background: @accent;
+  color: @bg;
+}
+
+/* ── Progress Bars Animadas ──────────────────── */
+
+progressbar {
+  background: transparent;
+  border-radius: 8px;
+  min-height: 12px;
+}
+
+progressbar trough {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  min-height: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+progressbar progress {
+  background: linear-gradient(90deg, @accent, @surface2);
+  border-radius: 8px;
+  min-height: 12px;
+  box-shadow: 0 0 8px alpha(@accent, 0.3);
+  border: 1px solid @accent;
+}
+
+.notification progressbar progress {
+  animation: progress-glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes progress-glow {
+  0% {
+    box-shadow: 0 0 12px alpha(@accent, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+  100% {
+    box-shadow: 0 0 16px alpha(@accent, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  }
+}
+
+/* ── Notifications Panel & Groups (Sin cuadro gris & Anchas) ── */
+
+.control-center .notification-row,
+.control-center .notification-background,
+.control-center .notification-group,
+.notification-group,
+.notification-group-headers {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+.control-center .notification-row .notification-background .notification {
+  background: alpha(@surface, 0.6);
+  border-radius: 18px;
+  border: 1px solid alpha(@overlay, 0.25);
+  margin: 6px 2px;     /* Márgenes mínimos a los lados para que ocupe todo el ancho */
+  padding: 12px 16px;   /* Buen espacio interno */
+}
+
+.control-center .notification-content {
+  margin: 0;
+  padding: 0;
+}
+
+.summary {
+  font-weight: 700;
+  font-size: 13px;
+  color: @fg;
+  padding: 2px 4px;
+}
+
+.body {
+  font-size: 12px;
+  color: @fg_dim;
+  padding: 2px 4px;
+}

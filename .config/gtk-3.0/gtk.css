@@ -1,0 +1,86 @@
+/* ==========================================================================
+   TEMA DEFINIDO POR EL USUARIO: ESTILO NOTHING OS
+   ========================================================================== */
+
+@define-color theme_bg_color #000000;          /* BLACK: Fondo principal absoluto */
+@define-color theme_fg_color #F2F2F2;          /* WHITE: Texto principal */
+@define-color theme_text_color #F2F2F2;        /* WHITE: Texto en editores y listas */
+
+/* Superficies secundarias, tarjetas y contenedores */
+@define-color theme_base_color #0E0E0E;        /* SURFACE: Fondos de apps, listas, cajas de texto */
+@define-color card_bg_color #1A1A1A;           /* TILE: Tarjetas, widgets y elementos flotantes */
+@define-color view_bg_color #0E0E0E;
+
+/* Textos secundarios y estados atenuados */
+@define-color theme_unfocused_fg_color #8C8C8C; /* GREY: Texto en ventanas inactivas */
+@define-color insensitive_fg_color #444A4A;     /* MUTE: Elementos deshabilitados */
+@define-color secondary_fg_color #8C8C8C;       /* GREY: Subtítulos y texto secundario */
+
+/* Bordes, líneas divisorias y separadores */
+@define-color borders #2A2A2A;                  /* LINE: Bordes finos de ventanas y botones */
+@define-color unfocused_borders #1A1A1A;
+
+/* Color de acento característico de Nothing */
+@define-color theme_selected_bg_color #D71921;  /* RED: Botones activos, selección, progreso */
+@define-color theme_selected_fg_color #F2F2F2;  /* WHITE: Texto sobre elementos rojos */
+@define-color accent_color #D71921;
+@define-color accent_bg_color #D71921;
+@define-color accent_fg_color #F2F2F2;
+
+/* ==========================================================================
+   ESTILOS GENERALES Y BORDES REDONDEADOS (ESTILO WIDGET DE NOTHING)
+   ========================================================================== */
+
+/* Suavizar esquinas de ventanas y tarjetas al estilo de la captura */
+window, .window-frame {
+    border-radius: 16px;
+    background-color: @theme_bg_color;
+    border: 1px solid @borders;
+}
+
+/* Estilo para los botones */
+button {
+    background-color: @card_bg_color;
+    color: @theme_fg_color;
+    border: 1px solid @borders;
+    border-radius: 20px; /* Botones muy redondeados estilo píldora */
+    padding: 6px 12px;
+}
+
+button:hover {
+    background-color: @borders;
+}
+
+button:checked, button:active, button.suggested-action {
+    background-color: @theme_selected_bg_color;
+    color: @theme_selected_fg_color;
+    border-color: @theme_selected_bg_color;
+}
+
+/* Entradas de texto */
+entry {
+    background-color: @theme_base_color;
+    border: 1px solid @borders;
+    border-radius: 8px;
+    color: @theme_fg_color;
+}
+
+entry:focus {
+    border-color: @theme_selected_bg_color;
+}
+
+/* Barras de progreso y deslizadores */
+progressbar progress {
+    background-color: @theme_selected_bg_color;
+    border-radius: 4px;
+}
+
+scale highlight {
+    background-color: @theme_selected_bg_color;
+}
+
+/* Estilo base para elementos */
+window, .background {
+    background-color: @theme_bg_color;
+    color: @theme_fg_color;
+}

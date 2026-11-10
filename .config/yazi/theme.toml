@@ -1,0 +1,26 @@
+[manager]
+# Color de la ruta del directorio actual (Blanco roto)
+cwd = { fg = "#D71921", bold = true }
+
+# Estilo para el archivo actualmente seleccionado (Fondo gris oscuro, texto blanco puro)
+hovered         = { fg = "#8c8c8c", bg = "#0B0B0B", bold = true }
+preview_hovered = { underline = true, fg = "#D71921" }
+
+# Bordes de las columnas (Estilo fino y minimalista con gris medio)
+border_symbol = "│"
+border_style  = { fg = "#6E6E6E" }
+
+[status]
+# La barra inferior de información usando separadores rectos/invisibles estilo Nothing OS
+separator_open  = "----"
+separator_close = "----"
+separator_style = { fg = "#0B0B0B", bg = "#0B0B0B" }
+
+# Colores de los diferentes modos (El modo normal usa el rojo característico)
+mode_normal = { fg = "#FFFFFF", bg = "#D71921", bold = true }
+mode_select = { fg = "#0B0B0B", bg = "#B8B8B8", bold = true }
+mode_unset  = { fg = "#FFFFFF", bg = "#6E6E6E", bold = true }
+
+# Información de permisos y conteo en la barra de estado
+permissions = { fg = "#B8B8B8" }
+position    = { fg = "#F1F1F1", bg = "#0B0B0B" }
