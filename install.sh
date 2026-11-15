@@ -20,6 +20,7 @@ PAQUETES=(
     swaync
     fuzzel
     kitty
+    eww
     thunar
     btop
     cava
