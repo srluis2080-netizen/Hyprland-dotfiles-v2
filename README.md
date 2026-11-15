@@ -49,6 +49,7 @@ Este repositorio ya viene organizado siguiendo la estructura real de `~/.config/
 | **Cava** | Visualizador de audio en terminal | `.config/cava/` |
 | **Thunar & Yazi** | Gestores de archivos (gráfico y terminal) | `.config/Thunar/`, `.config/yazi/` |
 | **GTK & Fuentes** | Temas GTK 3/4 y tipografías | `.config/gtk-3.0/`, `.config/gtk-4.0/`, `.config/fonts/` |
+| **EWW** | Widgets personalizados | `.config/eww/` |
 
 ---
 
