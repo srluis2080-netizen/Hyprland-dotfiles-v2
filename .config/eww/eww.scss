@@ -31,24 +31,6 @@ $accent:     $red;
   font-family: "Ndot 57";
 }
 
-// Clima estilo Pixel
-.clima { background-color: transparent; }
-.clima-temp {
-  font-size: 64px;
-  font-weight: 400;
-  color: $white;
-  margin: 46px 30px 0 0;
-}
-.clima-icon { margin: 0 0 26px 22px; }
-
-// Pestana visible que activa el hover
-.handle {
-  min-width: 6px;
-  min-height: 90px;
-  border-radius: 100px 0 0 100px;
-  background-color: $red;
-}
-
 
 .margen-der { margin-right: 12px; }
 .margen-der { margin-left: 5px; }
