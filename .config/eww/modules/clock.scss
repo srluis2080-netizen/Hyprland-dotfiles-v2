@@ -1,0 +1,44 @@
+// Reloj analogico estilo Material You
+// Uso: en eww.scss agrega  @import "clock";
+//
+// Colores: cara en images/clock-cookie.svg, manecillas en scripts/clock-hands.sh.
+
+$clk-dot-color: #8C8C8C;
+$clk-text:      #F2F2F2;
+
+// Posicion del punto: cambia estos valores para moverlo
+$clk-dot-top:  96px;
+$clk-dot-size: 26px;
+
+window, window.background, window.background.csd, window.csd,
+decoration, window decoration, .background, .csd {
+  all: unset;
+  background-color: transparent;
+  background-image: none;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.clk, .clk * {
+  background-image: none;
+  box-shadow: none;
+  border: none;
+}
+.clk { background-color: transparent; }
+
+.clk-dot {
+  background-color: $clk-dot-color;
+  border-radius: 100px;
+  min-width: $clk-dot-size;
+  min-height: $clk-dot-size;
+  margin-top: $clk-dot-top;
+}
+
+.clk-date {
+  font-family: "Ndot 57";
+  font-size: 20px;
+  font-weight: 500;
+  color: $clk-text;
+  margin-bottom: 34px;
+}

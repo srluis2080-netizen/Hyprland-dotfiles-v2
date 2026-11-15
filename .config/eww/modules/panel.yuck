@@ -1,0 +1,63 @@
+;; ── Datos ──────────────────────────────────────────────
+(defpoll hora    :interval "1s" `date +%I:%M:%S`)
+(defpoll fecha   :interval "60s" `LC_TIME=es_ES.UTF-8 date "+%A, %d de %B"`)
+(defpoll cpu     :interval "3s"  `top -bn1 | awk '/Cpu\\(s\\)/ {print int($2+$4)}'`)
+(defpoll ram     :interval "5s"  `free | awk '/Mem/ {print int($3/$2*100)}'`)
+(defpoll bateria_bt :interval "30s"
+  `bluetoothctl info 86:7B:87:2B:62:F3 | awk -F '[()]' '/Battery Percentage/ {print $2}' || echo 0`)
+
+(defpoll volumen :interval "1s"  `wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print int($2*100)}'`)
+
+;; Visualizador: cava emite un array JSON de 16 alturas (~30 fps)
+(deflisten panel-viz
+  :initial "[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]"
+  `$HOME/.config/eww/scripts/cava-viz.sh`)
+
+;; ── Componentes ────────────────────────────────────────
+(defwidget stat [icono valor clase]
+  (box :class "stat ${clase}" :orientation "v" :space-evenly false :spacing 8 :halign "fill" :hexpand true
+    (box :class "ring-box" :halign "center"
+      (circular-progress :class "ring" :value valor :thickness 7 :start-at 75 :clockwise true
+        (label :class "stat-icon" :text icono)))
+    (label :class "stat-val" :text "${valor}%")))
+
+(defwidget reloj []
+  (box :class "reloj" :orientation "v" :space-evenly false :halign "start" :spacing 0
+    (label :class "hora"  :text hora  :halign "start")
+    (label :class "fecha" :text fecha :halign "start")))
+
+(defwidget volumen-slider []
+  (box :class "vol" :orientation "h" :space-evenly false :spacing 14
+    (label :class "vol-icon" :text "")
+    (scale :class "vol-scale" :hexpand true :min 0 :max 101 :value volumen
+           :onchange "wpctl set-volume @DEFAULT_AUDIO_SINK@ {}%")))
+
+(defwidget tarjeta []
+  (box :class "card" :orientation "v" :space-evenly false :spacing 16
+    (reloj)
+    (box :class "stats" :orientation "h" :spacing 10 :space-evenly true
+      (stat :icono ": " :valor cpu     :clase "cpu")
+      (stat :icono "" :valor ram     :clase "ram")
+      (stat :icono "" :valor bateria_bt :clase "bat"))
+    (volumen-slider)
+    (cava-viz)))
+
+;; Visualizador de audio (barras en pildora)
+(defwidget cava-viz []
+  (box :class "viz-box" :halign "fill"
+    (box :class "viz" :orientation "h" :halign "center" :valign "center"
+         :space-evenly false :spacing 5
+      (for h in panel-viz
+        (box :class "viz-bar" :valign "center" :style "min-height: ${h + 6}px;")))))
+
+;; ── Ventana ────────────────────────────────────────────
+(defwindow material
+  :monitor 0
+  :geometry (geometry :x "0px" :y "24px" :anchor "top right")
+  :stacking "bg"
+  :exclusive false
+  :focusable false
+  :namespace "eww-material"
+  (tarjeta-hover))
+
+  

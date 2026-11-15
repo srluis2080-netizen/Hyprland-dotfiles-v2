@@ -1,0 +1,21 @@
+;; ── Clima estilo Pixel ────────────────────────────────
+(defpoll clima :interval "15m"
+  :initial "{\"temp\":\"--\",\"icon\":\"cloud\"}"
+  `$HOME/.config/eww/scripts/weather.sh`)
+
+(defwidget pixel-clima []
+  (overlay :class "clima"
+    (image :path "${EWW_CONFIG_DIR}/images/pill.svg" :image-width 220 :image-height 220)
+    (label :class "clima-temp" :halign "end" :valign "start" :text "${clima.temp}°")
+    (image :class "clima-icon" :halign "start" :valign "end"
+           :path "${EWW_CONFIG_DIR}/images/${clima.icon}.svg"
+           :image-width 84 :image-height 84)))
+
+(defwindow clima
+  :monitor 0
+  :geometry (geometry :x "0px" :y "24px" :anchor "bottom left")
+  :stacking "bg"
+  :exclusive false
+  :focusable false
+  :namespace "eww-clima"
+  (clima-hover))

@@ -1,0 +1,32 @@
+;; Reloj analogico estilo Material You
+;; Uso: en eww.yuck agrega  (include "./clock.yuck")
+;; Abrir: eww open reloj
+;; Requiere: scripts/clock-hands.sh (chmod +x) y images/clock-cookie.svg
+
+(defpoll clk-manecillas :interval "1s"
+  :initial "/tmp/eww-clock/none.svg"
+  `$HOME/.config/eww/scripts/clock-hands.sh`)
+(defpoll clk-fecha :interval "60s" `date "+%a %d"`)
+
+(defwidget reloj-analogico []
+  (overlay :class "clk"
+    ;; cara oscura en forma de galleta
+    (image :path "${EWW_CONFIG_DIR}/images/clock-cookie.svg" :image-width 220 :image-height 220)
+
+    ;; punto superior (se mueve desde el scss)
+    (box :class "clk-dot" :halign "center" :valign "start")
+
+    ;; fecha
+    (label :class "clk-date" :halign "center" :valign "end" :text clk-fecha)
+
+    ;; manecillas (svg generado por el script)
+    (image :path clk-manecillas :image-width 220 :image-height 220)))
+
+(defwindow reloj
+  :monitor 0
+  :geometry (geometry :x "24px" :y "24px" :width "220px" :height "220px" :anchor "top left")
+  :stacking "bg"
+  :exclusive false
+  :focusable false
+  :namespace "eww-reloj"
+  (reloj-analogico))

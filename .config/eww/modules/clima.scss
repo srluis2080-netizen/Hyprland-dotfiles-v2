@@ -1,0 +1,48 @@
+// PALETA FIJA (edita solo este bloque)
+
+$black:   #000000;
+$surface: #0E0E0E;
+$tile:    #1A1A1A;
+$line:    #2A2A2A;
+$mute:    #4A4A4A;
+$grey:    #8C8C8C;
+$white:   #F2F2F2;
+$red:     #D71921;
+
+// Roles
+$bg-card:    $surface;
+$bg-tile:    $tile;
+$track:      $line;
+$text:       $white;
+$text-soft:  $grey;
+$accent:     $red;
+
+// Reset minimo
+* {
+  background-image: none;
+  box-shadow: none;
+  text-shadow: none;
+  border: none;
+  outline: none;
+  color: $text;
+  font-family: "Ndot 57";
+}
+
+
+// Clima estilo Pixel
+.clima { background-color: transparent; }
+.clima-temp {
+  font-size: 64px;
+  font-weight: 400;
+  color: $white;
+  margin: 46px 30px 0 0;
+}
+.clima-icon { margin: 0 0 26px 22px; }
+
+// Pestana visible que activa el hover
+.handle {
+  min-width: 6px;
+  min-height: 90px;
+  border-radius: 100px 0 0 100px;
+  background-color: $red;
+}
