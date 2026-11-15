@@ -10,6 +10,11 @@ Este repositorio ya viene organizado siguiendo la estructura real de `~/.config/
 
 ## Capturas de pantalla
 
+### Widgets de eww - Panel - Reloj - Clima
+<img width="1600" height="900" alt="captura" src="https://github.com/user-attachments/assets/2ea21ef3-9970-44b7-9785-a25eaa026a6c" /> 
+
+<img width="1600" height="900" alt="image" src="https://github.com/user-attachments/assets/06457d92-706a-4533-8771-e658daffede9" />
+
 ### Fastfetch, Kitty y Waybar
 <img width="1600" height="900" alt="image" src="https://github.com/user-attachments/assets/ce52af56-c210-4251-a69e-4619312ff454" />
 
