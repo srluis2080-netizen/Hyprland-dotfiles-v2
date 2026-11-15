@@ -23,7 +23,7 @@
         "cpu",
         "memory",
         "custom/nightlight",
-        "backlight",
+        //"backlight",
         "temperature",
         "custom/power"
     ],
@@ -31,7 +31,7 @@
     // Modules configuration
 
         "power-profiles-daemon": {
-            "format": "{icon} ",
+            "format": "{icon}",
             "tooltip-format": "Perfil de energía: {profile}\nFuente: {driver}",
             "tooltip": true,
             "format-icons": {

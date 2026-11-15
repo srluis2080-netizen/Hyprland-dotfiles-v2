@@ -7,8 +7,8 @@
   "layer": "overlay",
   "control-center-layer": "top",
 
-  "control-center-width": 450,
-  "control-center-height": 650,
+  "control-center-width": 400,
+  "control-center-height": 750,
   "control-center-margin-top": 11,
   "control-center-margin-right": 3,
   "control-center-margin-left": 0,

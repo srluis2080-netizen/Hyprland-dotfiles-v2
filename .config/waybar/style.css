@@ -1,47 +1,48 @@
-/* no esta del todo terminado y hay cosas repetidas */
+/* ==========================================================
+   Waybar - estilo Material You (paleta fija)
+   Chips tonales redondeados, sin bordes, estado activo en rojo.
+   ========================================================== */
 
-/* PALETA DE COLORES */
+/* ---------- PALETA ---------- */
 @define-color accent_rojo #d71921;
 @define-color accent_blanco #f2f2f2;
 @define-color accent_gris #8c8c8c;
 @define-color accent_gris_oscuro #4a4a4a;
 @define-color accent_negro_claro #2a2a2a;
 @define-color accent_negro #1a1a1a;
-@define-color accent_negro_negrisimo#000000;
+@define-color accent_superficie #0e0e0e;
+@define-color accent_negro_negrisimo #000000;
 
+/* ---------- RESET ---------- */
 * {
     border: none;
     border-radius: 0;
-    font-family: "Ndot 57";
+    font-family: "Ndot 57", "JetBrainsMono Nerd Font", sans-serif;
     font-weight: bold;
     font-size: 15px;
-    min-height: 0;  
+    min-height: 0;
 }
 
+/* ---------- BARRA (transparente: solo "flotan" los chips) ---------- */
 window#waybar {
     background: transparent;
-    /*background: rgba(0, 0, 0,0.50);*/
-    /*background-color: @accent_negro_negrisimo;*/
-    /*border-bottom: 2px solid @accent_rojo;*/
-    /*color: @forestgreen;*/
+    color: @accent_blanco;
     transition-property: background-color;
     transition-duration: .5s;
-    border-radius: 15px; 
-    margin: 6px;
 }
 
 window#waybar.hidden {
     opacity: 0.2;
 }
 
-/* MODULOS INDIVIDUALES */
+/* ---------- CHIPS (base de todos los modulos) ---------- */
 #battery,
-/*#disk,*/
-/*#keyboard-state,*/
-/*#backlight,*/
-/*#network,*/
-/*#wireplumber,*/
-/*#mode,*/
+#backlight,
+#disk,
+#network,
+#wireplumber,
+#keyboard-state,
+#mode,
 #mpris,
 #cpu,
 #memory,
@@ -51,247 +52,207 @@ window#waybar.hidden {
 #tray,
 #user,
 #power-profiles-daemon,
-#custom-notification,
-#custom-power{
-
-    padding: 0 10px;
-    margin: 4px 2px;
-    border-bottom: 3px solid @accent_gris; 
-    transition: all 0.3s ease;
-    border-radius: 55px;
-    background-color: rgba(30, 30, 20, 0.09);
+#custom-nightlight,
+#custom-power {
+    background-color: @accent_negro;
+    color: @accent_blanco;
+    border-radius: 99px;
+    padding: 2px 14px;
+    margin: 4px 3px;
+    transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-#custom-nightlight {
-    padding: 0 10px;
-    margin: 2px 2px;
-    border-bottom: 3px solid rgba(122, 162, 247, 0.5); 
-    transition: all 0.3s ease;
-    border-radius: 55px;
-    background-color: rgba(30, 30, 20, 0.09);
-}
-
+/* Hover: capa de estado (un tono mas claro) */
 #battery:hover,
-/*#disk:hover,*/
-/*#network:hover,*/
-/*#wireplumber:hover,*/
-/*#custom-prev:hover,*/
-/*#custom-play-pause:hover,*/
+#backlight:hover,
+#disk:hover,
+#network:hover,
+#wireplumber:hover,
+#mpris:hover,
 #cpu:hover,
 #memory:hover,
-#mpris:hover,
 #temperature:hover,
-#user:hover,
-#tray:hover,
 #pulseaudio:hover,
 #bluetooth:hover,
-#custom-nightlight:hover,
+#tray:hover,
+#user:hover,
 #power-profiles-daemon:hover,
-#custom-power:hover{
-    border-bottom-color: @accent_rojo; /* Cambia a un morado brillante al pasar el mouse */
-    background-color: rgba(255, 255, 255, 0.05);
+#custom-nightlight:hover {
+    background-color: @accent_negro_claro;
+}
+
+/* ---------- ESPACIOS DE TRABAJO ---------- */
+/* Contenedor tonal; el activo es una pastilla roja (indicador Material You) */
+#workspaces {
+    background-color: @accent_negro;
+    border-radius: 99px;
+    padding: 2px 4px;
+    margin: 4px 3px;
 }
 
 #workspaces button {
-    padding: 0 5px;
-    background-color: @accent_gris_oscuro;
-    color: @accent_blanco;
-    border-bottom: 1px solid @accent_blanco;
-    border-radius: 35px;
-    padding-bottom: 1px;
+    background-color: transparent;
+    color: @accent_gris;
+    border-radius: 99px;
+    padding: 0 10px;
+    margin: 2px 1px;
+    transition: background-color 0.25s ease, color 0.25s ease, padding 0.25s ease;
 }
 
 #workspaces button:hover {
-    background-color: @accent_gris_oscuro;
-    border-bottom: 1px solid @accent_rojo;
-    border-radius: 10px;
+    background-color: @accent_negro_claro;
+    color: @accent_blanco;
 }
 
-#workspaces button.focused, #workspaces button.active {
-    color: @accent_cyan;
-        background-color: rgba(166, 120, 211, 0.2);
-        border-bottom: 3px solid @accent_gris_oscuro;
-        border-radius: 15px;
-    }
+#workspaces button.focused,
+#workspaces button.active {
+    background-color: @accent_rojo;
+    color: @accent_blanco;
+    padding: 0 16px;
+}
 
 #workspaces button.urgent {
-    background-color: @accent_gris;
-    color: #ffffff;
+    background-color: @accent_blanco;
+    color: @accent_negro;
 }
 
-#workspaces button.active {
-    background-color: @accent;
-    color: @bg;
-    border-radius: 15px;
-}
-
-
-
-#cpu {
-    color: @accent_blanco;
-}
-
-#memory {
-    color: @accent_blanco;
-}
-
-#temperature {
-    color: @accent_blanco;
-}
-
+/* ---------- ESTADOS ---------- */
+/* Temperatura critica */
 #temperature.critical {
-    color:@accent_negro_negrisimo;
     background-color: @accent_rojo;
+    color: @accent_blanco;
 }
 
-#pulseaudio {
-    color: @accent_blanco; /* Un ciano suave para el audio */
-    background: transparent; /* Sin fondo sólido para que se vea más minimalista */
-    padding: 0 10px;
-    margin: 0 5px;
-    border-bottom: 2px solid transparent;
+/* Audio silenciado */
+#pulseaudio.muted,
+#wireplumber.muted {
+    color: @accent_rojo;
 }
 
-#pulseaudio.muted {
-    color: @accent_rojo; 
+/* Bluetooth apagado / sin conexion */
+#bluetooth.off,
+#bluetooth.disabled {
+    color: @accent_gris;
 }
 
-/*#pulseaudio:hover {
-    border-bottom: 2px solid #7dcfff; 
-}*/
-
-#tray {
-    background-color: rgba(255, 255, 255, 0.05);
+/* Reproductor */
+#mpris.paused {
+    color: @accent_gris;
 }
 
-#tray > .needs-attention {
-    background-color: @critical_red;
+/* Bateria */
+#battery.charging,
+#battery.plugged {
+    background-color: @accent_rojo;
+    color: @accent_blanco;
+}
+
+#battery.warning:not(.charging) {
+    color: @accent_rojo;
+}
+
+#battery.critical:not(.charging) {
+    background-color: @accent_rojo;
+    color: @accent_blanco;
+    animation-name: blink;
+    animation-duration: 0.6s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
 }
 
 @keyframes blink {
     to {
-        background-color: #ffffff;
-        color: @critical_red;
+        background-color: @accent_blanco;
+        color: @accent_negro;
     }
 }
 
-
-menu {
-    border-radius: 12px;
-    background: #1a1b26;
-    color: @text_white;
-    border: 1px solid @accent_purple;
-}
-
-
-#power-profiles-daemon {
-    padding-right: 15px;
-    padding-left: 15px;
-    border-bottom: 3px solid transparent; 
-    margin-bottom: 2px; 
-}
-
-
+/* Perfiles de energia */
 #power-profiles-daemon.performance {
-    color: @accent_rojo;
-    border-bottom: 3px solid @accent_rojo;
+    background-color: @accent_rojo;
+    color: @accent_blanco;
 }
-
 
 #power-profiles-daemon.balanced {
-        color: @accent_blanco;
-        border-bottom: 3px solid @accent_blanco;
+    color: @accent_blanco;
 }
-
 
 #power-profiles-daemon.power-saver {
     color: @accent_gris;
-     border-bottom: 3px solid @accent_gris;
 }
 
-
-@keyframes breathe {
-    0% { box-shadow: 0 0 5px rgba(245, 194, 231, 0.2); }
-    50% { box-shadow: 0 0 15px rgba(245, 194, 231, 0.5); }
-    100% { box-shadow: 0 0 5px rgba(245, 194, 231, 0.2); }
-}
-
-/* Estilo para el módulo de Usuario y Uptime */
-#user {
-    background: rgba(20, 20, 30, 0.7);
-    color: #ffffff; /* Texto principal en blanco suave */
-    border-radius: 100px;
-    padding: 2px 10px;
-    margin: 2px 3px;
-    border: 2px solid;
-    font-weight: bold;
-    border-color: @accent_gris;
-}
-
-/* Estilo para la bandeja del sistema (Contenedor invisible o sutil) */
-#tray {
-    background: rgba(20, 20, 30, 0.5);
-    border-radius: 12px;
-    padding: 0px 10px;
-    margin: 4px 5px;
-}
-
-#custom-power {
-    color:#ffffff;
-    font-size: 18px; 
-    background-color: transparent; 
-    border-radius: 80px; 
-    margin: 3px;
-    padding-left: 6px;
-    padding-right: 0px;
-    transition: all 0.3s ease;
-}
-
-#cpu, 
-#memory, 
-#clock,
-#custom-notification,
-#clock,
-#workspaces
-#tray,
-#power-profiles-daemon,
-#pulseaudio,
-#custom-nightlight,
-#temperature,
-#bluetooth, 
-#custom-power {
-    background-color: @accent_negro_negrisimo;
-    border: 1px solid @accent_gris;
-    border-radius: 16px;
-    padding: 1px 12px;
-    margin: 2px 1px;
-}    
-
-/* Quita el fondo y márgenes del contenedor del grupo */
+/* ---------- RELOJ + NOTIFICACIONES (boton dividido) ---------- */
 #group-reloj-notification {
-    background-color: @accent_negro_negrisimo;
+    background-color: transparent;
     padding: 0;
     margin: 0 4px;
 }
 
-/* Lado izquierdo (Reloj) */
 #clock {
-    background-color: @accent_negro_negrisimo;
+    background-color: @accent_negro;
     color: @accent_blanco;
-    border: 2px solid @accent_rojo;
-    border-right: none;               /* Quita el borde derecho */
-    border-radius: 16px 0px 0px 16px; /* Solo redondea las esquinas izquierdas */
-    padding: 2px 6px;
-    margin-right: 0px;                /* Cero espacio a la derecha */
+    border-radius: 99px 6px 6px 99px;
+    padding: 0px 15px;
+    margin: 4px 0px 4px 1px;
 }
 
-/* Lado derecho (Notificaciones) */
 #custom-notification {
-    background-color: @accent_negro_negrisimo;
+    background-color: @accent_negro;
     color: @accent_blanco;
-    border: 2px solid @accent_rojo;
-    border-left: none;                /* Quita el borde izquierdo */
-    border-radius: 0px 16px 16px 0px; /* Solo redondea las esquinas derechas */
-    padding: 3px 0px;
-    margin-left: 0px;                 /* Cero espacio a la izquierda */
+    border-radius: 6px 99px 99px 6px;
+    padding: 2px 14px 2px 12px;
+    margin: 4px 0px 4px 0px;
+    transition: background-color 0.2s ease;
+}
+
+#custom-notification:hover {
+    background-color: @accent_gris_oscuro;
+}
+
+/* ---------- BOTON DE APAGADO (circular) ---------- */
+#custom-power {
+    color: @accent_rojo;
+    font-size: 17px;
+    padding: 2px 11px;
+}
+
+#custom-power:hover {
+    background-color: @accent_rojo;
+    color: @accent_blanco;
+}
+
+/* ---------- BANDEJA DEL SISTEMA ---------- */
+#tray > .needs-attention {
+    background-color: @accent_rojo;
+    border-radius: 99px;
+}
+
+menu {
+    background-color: @accent_negro;
+    color: @accent_blanco;
+    border: 1px solid @accent_negro_claro;
+    border-radius: 16px;
+    padding: 4px;
+}
+
+menu menuitem {
+    border-radius: 10px;
+    padding: 4px 10px;
+}
+
+menu menuitem:hover {
+    background-color: @accent_negro_claro;
+}
+
+/* ---------- TOOLTIPS ---------- */
+tooltip {
+    background-color: @accent_negro;
+    border: 1px solid @accent_negro_claro;
+    border-radius: 16px;
+}
+
+tooltip label {
+    color: @accent_blanco;
+    padding: 2px 6px;
 }
