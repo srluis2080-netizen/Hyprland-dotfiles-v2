@@ -1,0 +1,91 @@
+;; Temporizador estilo Material You (circulo + botones cuadrados redondeados)
+;; Uso: en eww.yuck agrega  (include "./timer.yuck")
+;; Abrir: eww open timer
+;; Requiere: scripts/timer.sh (chmod +x). Opcional: libnotify (notify-send), paplay
+;;
+;; Controles:
+;;   play/pausa   = boton inferior izquierdo
+;;   reiniciar    = boton superior derecho (clic derecho: reinicia el contador de sesiones)
+;;   rueda        = sobre la hora, +/- 1 min (solo con el temporizador detenido)
+;;   15m 30m 45m 60m = duraciones predeterminadas
+;;   hover        = el widget se esconde abajo a la derecha y se despliega al acercar el cursor a la pestana
+;;
+;; Nota: los botones son eventbox + box (no "button") para que el tema GTK
+;; no les imponga tamano ni colores.
+
+(defpoll tm :interval "1s"
+  :initial "{\"time\":\"30:00\",\"running\":\"no\",\"total\":\"30\",\"session\":\"1\",\"pct\":\"0\"}"
+  `$HOME/.config/eww/scripts/timer.sh status`)
+
+;; Estado del despliegue (hover)
+(defvar tm-open false)
+
+;; ── Chip de duracion predeterminada ───────────────────
+(defwidget tm-chip [minutos]
+  (eventbox :class "tm-ev" :cursor "pointer"
+            :onclick "$HOME/.config/eww/scripts/timer.sh set ${minutos}; ${EWW_CMD} poll tm"
+    (box :class "tm-chip ${tm.total == minutos ? 'tm-chip-on' : ''}"
+      (label :halign "center" :hexpand true :text "${minutos}m"))))
+
+;; ── Escenario: circulo + botones que sobresalen del borde ──
+(defwidget tm-circulo []
+  (overlay :class "tm-overlay"
+    ;; base transparente: define el area total (los botones sobresalen del circulo)
+    (box :class "tm-stage")
+
+    ;; circulo
+    (box :class "tm-circle" :halign "center" :valign "center")
+
+    ;; texto central; la rueda ajusta los minutos
+    (eventbox :halign "center" :valign "center"
+              :onscroll "$HOME/.config/eww/scripts/timer.sh scroll {}; ${EWW_CMD} poll tm"
+      (box :class "tm-center ${tm.running == 'yes' ? 'tm-running' : ''}"
+           :orientation "v" :space-evenly false :spacing 0
+        (label :class "tm-label"   :text "TEMPORIZADOR")
+        (label :class "tm-time"    :text "${tm.time}")
+        (label :class "tm-session" :text "SESION ${tm.session}")))
+
+    ;; reiniciar (arriba a la derecha, sobre el borde)
+    (eventbox :class "tm-ev tm-pos-reset" :halign "end" :valign "start" :cursor "pointer"
+              :onclick "$HOME/.config/eww/scripts/timer.sh reset; ${EWW_CMD} poll tm"
+              :onrightclick "$HOME/.config/eww/scripts/timer.sh session-reset; ${EWW_CMD} poll tm"
+      (box :class "tm-btn tm-reset"
+        (label :class "tm-ico" :halign "center" :valign "center" :hexpand true :text "")))
+
+    ;; play / pausa (abajo a la izquierda, sobre el borde)
+    (eventbox :class "tm-ev tm-pos-play" :halign "start" :valign "end" :cursor "pointer"
+              :onclick "$HOME/.config/eww/scripts/timer.sh toggle; ${EWW_CMD} poll tm"
+      (box :class "tm-btn tm-play"
+        (label :class "tm-ico" :halign "center" :valign "center" :hexpand true
+               :text {tm.running == "yes" ? "" : ""})))))
+
+(defwidget tm-widget []
+  (box :class "tm-root" :orientation "v" :space-evenly false :spacing 0
+    (tm-circulo)
+    (box :class "tm-chips" :orientation "h" :halign "center" :space-evenly false :spacing 8
+      (tm-chip :minutos 15)
+      (tm-chip :minutos 30)
+      (tm-chip :minutos 45)
+      (tm-chip :minutos 60))))
+
+;; ── Despliegue al pasar el cursor (esquina inferior derecha) ──
+;; La pestana siempre visible es el area de hover: gris en reposo, roja si el temporizador corre.
+(defwidget tm-hover []
+  (eventbox :onhover "${EWW_CMD} update tm-open=true"
+            :onhoverlost "${EWW_CMD} update tm-open=false"
+    (box :orientation "h" :space-evenly false :valign "end"
+      (revealer :transition "slideleft" :duration "300ms" :reveal tm-open
+        (box :class "tm-margen" (tm-widget)))
+      (box :class "tm-hit" :valign "end"
+        (box :class "tm-handle ${tm.running == 'yes' ? 'tm-handle-on' : ''}"
+             :halign "end" :valign "center")))))
+
+;; ── Ventana ────────────────────────────────────────────
+(defwindow timer
+  :monitor 0
+  :geometry (geometry :x "0px" :y "24px" :anchor "bottom right")
+  :stacking "bg"
+  :exclusive false
+  :focusable false
+  :namespace "eww-timer"
+  (tm-hover))

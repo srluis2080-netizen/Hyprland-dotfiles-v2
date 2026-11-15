@@ -1,0 +1,103 @@
+// Temporizador estilo Material You (paleta fija)
+// Uso: en eww.scss agrega  @import "timer";
+// IMPORTANTE: solo ASCII (sin tildes ni enies) para evitar el error @charset.
+
+// Paleta
+$tm-black:   #000000;
+$tm-surface: #0E0E0E;
+$tm-tile:    #1A1A1A;
+$tm-line:    #2A2A2A;
+$tm-mute:    #4A4A4A;
+$tm-grey:    #8C8C8C;
+$tm-white:   #F2F2F2;
+$tm-red:     #D71921;
+
+// Medidas (ajusta aqui)
+$tm-stage:  240px;   // area total (el circulo + los botones que sobresalen)
+$tm-circle: 212px;   // diametro del circulo
+$tm-btn:    42px;    // lado de los botones
+$tm-off:    27px;    // distancia de los botones al borde del area (mas = mas hacia el centro)
+
+// Reset minimo
+.tm-root, .tm-root * {
+  background-image: none;
+  box-shadow: none;
+  text-shadow: none;
+  border: none;
+  outline: none;
+  color: $tm-white;
+  font-family: "Ndot 57";
+}
+
+// Area total (transparente) y circulo
+.tm-stage { min-width: $tm-stage; min-height: $tm-stage; }
+.tm-circle {
+  min-width: $tm-circle;
+  min-height: $tm-circle;
+  border-radius: 999px;
+  background-color: $tm-tile;
+  border: 1px solid $tm-line;
+}
+
+// Texto central
+.tm-label   { font-size: 11px; font-weight: bold; color: $tm-grey; }
+.tm-time    { font-size: 52px; font-weight: 500; color: $tm-white; }
+.tm-session { font-size: 11px; font-weight: bold; color: $tm-grey; }
+.tm-running .tm-time { color: $tm-red; }
+
+// Botones cuadrados redondeados (sobre el borde del circulo)
+.tm-btn {
+  min-width: $tm-btn;
+  min-height: $tm-btn;
+  border-radius: 14px;
+}
+.tm-ico {
+  font-family: "Ndot 57";
+  font-size: 16px;
+}
+
+// Margenes en el eventbox (asi el area de clic es solo el boton)
+.tm-pos-reset { margin: $tm-off $tm-off 0 0; }
+.tm-pos-play  { margin: 0 0 $tm-off $tm-off; }
+
+.tm-reset { background-color: $tm-line; border: 1px solid $tm-mute; }
+.tm-play  { background-color: $tm-red; }
+.tm-ev:hover .tm-reset { background-color: $tm-mute; }
+.tm-ev:hover .tm-play  { background-color: lighten($tm-red, 6%); }
+
+// Duraciones predeterminadas
+.tm-chips { margin-top: 4px; }
+.tm-chip {
+  min-width: 50px;
+  padding: 7px 0;
+  border-radius: 99px;
+  background-color: $tm-tile;
+  border: 1px solid $tm-line;
+}
+.tm-chip label { font-size: 13px; font-weight: bold; color: $tm-grey; }
+.tm-ev:hover .tm-chip { background-color: $tm-line; }
+
+.tm-chip-on, .tm-ev:hover .tm-chip-on { background-color: $tm-red; border-color: $tm-red; }
+.tm-chip-on label { color: $tm-white; }
+
+// Despliegue por hover: pestana siempre visible en el borde derecho
+.tm-hit { min-width: 18px; min-height: 120px; }
+.tm-handle {
+  min-width: 6px;
+  min-height: 90px;
+  border-radius: 100px 0 0 100px;
+  background-color: $tm-mute;
+}
+.tm-handle-on { background-color: $tm-red; }
+.tm-margen { margin-right: 12px; }
+
+// Ventana transparente (sin fondo ni bordes del tema GTK)
+window, window.background, window.background.csd, window.csd,
+decoration, window decoration, .background, .csd {
+  all: unset;
+  background-color: transparent;
+  background-image: none;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}

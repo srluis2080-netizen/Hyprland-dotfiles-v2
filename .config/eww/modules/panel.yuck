@@ -60,4 +60,10 @@
   :namespace "eww-material"
   (tarjeta-hover))
 
-  
+  (defwidget tarjeta-hover []
+  (eventbox :onhover "${EWW_CMD} update mostrar-card=true"
+            :onhoverlost "${EWW_CMD} update mostrar-card=false"
+    (box :orientation "h" :space-evenly false :valign "start"
+      (revealer :transition "slideleft" :duration "300ms" :reveal mostrar-card
+        (box :class "margen-der" (tarjeta)))
+      (box :class "handle" :valign "center"))))

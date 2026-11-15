@@ -19,3 +19,12 @@
   :focusable false
   :namespace "eww-clima"
   (clima-hover))
+  
+  
+(defwidget clima-hover []
+  (eventbox :onhover "${EWW_CMD} update mostrar-clima=true"
+            :onhoverlost "${EWW_CMD} update mostrar-clima=false"
+    (box :orientation "h" :space-evenly false :valign "end"
+      (revealer :transition "slideright" :duration "300ms" :reveal mostrar-clima
+        (box :class "margen-der" (pixel-clima)))
+      (box :class "handle" :valign "center"))))
