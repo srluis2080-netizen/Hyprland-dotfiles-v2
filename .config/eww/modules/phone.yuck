@@ -1,0 +1,69 @@
+;; Movil con KDE Connect (movil dibujado + datos + acciones)
+;; Uso: en eww.yuck agrega  (include "./phone.yuck")
+;; Abrir: eww open movil
+;; Requiere: scripts/phone.sh (chmod +x), images/phone/ (ver scripts/gen-phone.sh)
+;; Paquetes: kdeconnect (daemon + kdeconnect-cli) y glib2 (gdbus). Movil ya emparejado.
+;;
+;; La tira de LED del movil muestra la bateria (blanco normal, rojo si carga o esta baja).
+;; Botones: sonar el movil | enviar el portapapeles al movil | actualizar ahora
+;; Hover: el widget se esconde abajo en el centro y se despliega al acercar el cursor a la pestana
+
+(defpoll phone :interval "30s"
+  :initial "{\"name\":\"Movil\",\"online\":\"no\",\"charge\":\"--\",\"charging\":\"no\",\"hot\":\"no\",\"icon\":\"phone-off\"}"
+  `$HOME/.config/eww/scripts/phone.sh status`)
+
+;; ── Boton cuadrado redondeado (eventbox + box: el tema GTK no lo modifica) ──
+(defwidget ph-btn [icono cmd]
+  (eventbox :class "ph-ev" :cursor "pointer" :onclick cmd
+    (box :class "ph-btn"
+      (label :class "ph-ico" :halign "center" :valign "center" :hexpand true :text icono))))
+
+(defwidget ph-widget []
+  (box :class "ph-root" :orientation "h" :space-evenly false :spacing 22
+    ;; movil dibujado
+    (image :valign "center"
+           :path "${EWW_CONFIG_DIR}/images/phone/${phone.icon}.svg"
+           :image-width 110 :image-height 220)
+
+    ;; datos y acciones
+    (box :orientation "v" :valign "center" :space-evenly false :spacing 6
+      (label :class "ph-label" :halign "start" :text "MOVIL")
+      (label :class "ph-name" :halign "start" :limit-width 14 :text "${phone.name}")
+      (label :class "ph-pct ${phone.online != 'yes' ? 'ph-pct-off' : phone.hot == 'yes' ? 'ph-pct-hot' : ''}"
+             :halign "start"
+             :text {phone.charge == "--" ? "--" : "${phone.charge}%"})
+      (box :class "ph-chip ${phone.online != 'yes' ? 'ph-chip-off' : phone.charging == 'yes' ? 'ph-chip-charge' : 'ph-chip-on'}"
+           :halign "start"
+        (label :text {phone.online != "yes" ? "DESCONECTADO" : phone.charging == "yes" ? "CARGANDO" : "CONECTADO"}))
+      (box :class "ph-actions" :orientation "h" :space-evenly false :spacing 8 :halign "start"
+        (ph-btn :icono ""
+                :cmd "$HOME/.config/eww/scripts/phone.sh ring; ${EWW_CMD} poll phone")
+        (ph-btn :icono ""
+                :cmd "$HOME/.config/eww/scripts/phone.sh clip; ${EWW_CMD} poll phone")
+        (ph-btn :icono ""
+                :cmd "${EWW_CMD} poll phone")))))
+
+;; ── Despliegue al pasar el cursor (abajo en el centro) ──
+;; La pestana siempre visible es el area de hover: gris desconectado, blanca conectado,
+;; roja si el movil carga o tiene la bateria baja.
+(defvar ph-open false)
+
+(defwidget ph-hover []
+  (eventbox :onhover "${EWW_CMD} update ph-open=true"
+            :onhoverlost "${EWW_CMD} update ph-open=false"
+    (box :orientation "v" :space-evenly false :halign "center"
+      (revealer :transition "slideup" :duration "300ms" :reveal ph-open
+        (box :class "ph-margen" (ph-widget)))
+      (box :class "ph-hit" :halign "center"
+        (box :class "ph-handle ${phone.online != 'yes' ? 'ph-handle-off' : phone.hot == 'yes' ? 'ph-handle-hot' : 'ph-handle-on'}"
+             :halign "center" :valign "end")))))
+
+;; ── Ventana ────────────────────────────────────────────
+(defwindow movil
+  :monitor 0
+  :geometry (geometry :x "0px" :y "0px" :anchor "bottom center")
+  :stacking "bg"
+  :exclusive false
+  :focusable false
+  :namespace "eww-movil"
+  (ph-hover))

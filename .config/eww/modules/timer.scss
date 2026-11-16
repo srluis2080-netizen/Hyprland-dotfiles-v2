@@ -26,7 +26,7 @@ $tm-off:    27px;    // distancia de los botones al borde del area (mas = mas ha
   border: none;
   outline: none;
   color: $tm-white;
-  font-family: "Ndot 57";
+  font-family: "Google Sans", "Roboto", "Noto Sans", "Inter", "DejaVu Sans", "JetBrainsMono Nerd Font", sans-serif;
 }
 
 // Area total (transparente) y circulo
@@ -41,7 +41,7 @@ $tm-off:    27px;    // distancia de los botones al borde del area (mas = mas ha
 
 // Texto central
 .tm-label   { font-size: 11px; font-weight: bold; color: $tm-grey; }
-.tm-time    { font-size: 52px; font-weight: 500; color: $tm-white; }
+.tm-time    { font-family: "Ndot 57", "Google Sans", "Roboto", "Noto Sans", sans-serif; font-size: 52px; font-weight: 500; color: $tm-white; }
 .tm-session { font-size: 11px; font-weight: bold; color: $tm-grey; }
 .tm-running .tm-time { color: $tm-red; }
 
@@ -52,7 +52,7 @@ $tm-off:    27px;    // distancia de los botones al borde del area (mas = mas ha
   border-radius: 14px;
 }
 .tm-ico {
-  font-family: "Ndot 57";
+  font-family: "JetBrainsMono Nerd Font", "Symbols Nerd Font", "Symbols Nerd Font Mono", sans-serif;
   font-size: 16px;
 }
 

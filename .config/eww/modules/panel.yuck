@@ -1,7 +1,7 @@
 ;; ── Datos ──────────────────────────────────────────────
 (defpoll hora    :interval "1s" `date +%I:%M:%S`)
 (defpoll fecha   :interval "60s" `LC_TIME=es_ES.UTF-8 date "+%A, %d de %B"`)
-(defpoll cpu     :interval "3s"  `top -bn1 | awk '/Cpu\\(s\\)/ {print int($2+$4)}'`)
+(defpoll cpu :interval "3s" `$HOME/.config/eww/scripts/cpu.sh`)
 (defpoll ram     :interval "5s"  `free | awk '/Mem/ {print int($3/$2*100)}'`)
 (defpoll bateria_bt :interval "30s"
   `bluetoothctl info 86:7B:87:2B:62:F3 | awk -F '[()]' '/Battery Percentage/ {print $2}' || echo 0`)

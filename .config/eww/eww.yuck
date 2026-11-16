@@ -6,6 +6,7 @@
 
  (include "./modules/timer.yuck")
 
+(include "./modules/phone.yuck")
 
 
 ;; ── Hover: mostrar al acercar el cursor, ocultar al alejarlo ──

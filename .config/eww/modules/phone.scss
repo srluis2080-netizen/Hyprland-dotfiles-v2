@@ -1,0 +1,92 @@
+// Movil (KDE Connect) - Material You + paleta Nothing
+// Uso: en eww.scss agrega  @import "phone";
+// IMPORTANTE: solo ASCII (sin tildes ni enies) para evitar el error @charset.
+
+// Paleta
+$ph-black:   #000000;
+$ph-surface: #0E0E0E;
+$ph-tile:    #1A1A1A;
+$ph-line:    #2A2A2A;
+$ph-mute:    #4A4A4A;
+$ph-grey:    #8C8C8C;
+$ph-white:   #F2F2F2;
+$ph-red:     #D71921;
+
+// Reset minimo
+.ph-root, .ph-root * {
+  background-image: none;
+  box-shadow: none;
+  text-shadow: none;
+  border: none;
+  outline: none;
+  color: $ph-white;
+  font-family: "Google Sans", "Roboto", "Noto Sans", "Inter", "DejaVu Sans", "JetBrainsMono Nerd Font", sans-serif;
+}
+
+// Tarjeta
+.ph-root {
+  background-color: $ph-surface;
+  border: 1px solid $ph-line;
+  border-radius: 32px;
+  padding: 20px 26px 20px 20px;
+}
+
+// Texto
+.ph-label { font-size: 11px; font-weight: bold; color: $ph-grey; }
+.ph-name  { font-size: 16px; font-weight: bold; color: $ph-white; }
+.ph-pct {
+  font-family: "Ndot 57", "Google Sans", "Roboto", "Noto Sans", sans-serif;
+  font-size: 46px;
+  color: $ph-white;
+}
+.ph-pct-hot { color: $ph-red; }
+.ph-pct-off { color: $ph-mute; }
+
+// Estado (pildora)
+.ph-chip {
+  background-color: $ph-tile;
+  border: 1px solid $ph-line;
+  border-radius: 99px;
+  padding: 4px 12px;
+}
+.ph-chip label { font-size: 11px; font-weight: bold; color: $ph-grey; }
+.ph-chip-on label { color: $ph-white; }
+.ph-chip-charge { background-color: $ph-red; border-color: $ph-red; }
+.ph-chip-charge label { color: $ph-white; }
+
+// Botones
+.ph-actions { margin-top: 6px; }
+.ph-btn {
+  min-width: 38px;
+  min-height: 38px;
+  border-radius: 14px;
+  background-color: $ph-line;
+}
+.ph-ico {
+  font-family: "JetBrainsMono Nerd Font", "Symbols Nerd Font", "Symbols Nerd Font Mono", sans-serif;
+  font-size: 15px;
+}
+.ph-ev:hover .ph-btn { background-color: $ph-mute; }
+
+// Despliegue por hover: pestana siempre visible en el borde inferior
+.ph-hit { min-width: 150px; min-height: 18px; }
+.ph-handle {
+  min-width: 90px;
+  min-height: 6px;
+  border-radius: 100px 100px 0 0;
+}
+.ph-handle-off { background-color: $ph-mute; }
+.ph-handle-on  { background-color: $ph-white; }
+.ph-handle-hot { background-color: $ph-red; }
+.ph-margen { margin-bottom: 10px; }
+
+// Ventana transparente (sin fondo ni bordes del tema GTK)
+window, window.background, window.background.csd, window.csd,
+decoration, window decoration, .background, .csd {
+  all: unset;
+  background-color: transparent;
+  background-image: none;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}

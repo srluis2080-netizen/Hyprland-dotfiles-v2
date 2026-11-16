@@ -6,7 +6,7 @@
 (defpoll clk-manecillas :interval "1s"
   :initial "/tmp/eww-clock/none.svg"
   `$HOME/.config/eww/scripts/clock-hands.sh`)
-(defpoll clk-fecha :interval "60s" `date "+%a %d"`)
+(defpoll clk-fecha :interval "60s" `date "+%a - %m - %d"`)
 
 (defwidget reloj-analogico []
   (overlay :class "clk"
@@ -24,7 +24,7 @@
 
 (defwindow reloj
   :monitor 0
-  :geometry (geometry :x "24px" :y "24px" :width "220px" :height "220px" :anchor "top left")
+  :geometry (geometry :x "24px" :y "24px" :width "200px" :height "220px" :anchor "top left")
   :stacking "bg"
   :exclusive false
   :focusable false

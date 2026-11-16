@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Emite por stdout un array JSON con 16 alturas (0-48) por cada frame de audio.
+# Emite por stdout un array JSON con 16 alturas (0-48) por cada frame de audio distinto.
 # Requiere: cava
 BARS=16
 ZEROS="[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]"
@@ -12,7 +12,7 @@ CFG="/tmp/eww-cava.conf"
 cat > "$CFG" << CONF
 [general]
 bars = $BARS
-framerate = 30
+framerate = 20
 
 [input]
 ; si usas PipeWire nativo puedes cambiar a: method = pipewire
@@ -32,4 +32,6 @@ noise_reduction = 60
 CONF
 
 pkill -f "cava -p $CFG" 2>/dev/null
-cava -p "$CFG" | sed -u -e 's/;$//' -e 's/;/,/g' -e 's/^/[/' -e 's/$/]/'
+# El awk final descarta lineas repetidas: en silencio eww no recibe nada
+cava -p "$CFG" | sed -u -e 's/;$//' -e 's/;/,/g' -e 's/^/[/' -e 's/$/]/' \
+  | awk '$0 != p { print; fflush(); p = $0 }'

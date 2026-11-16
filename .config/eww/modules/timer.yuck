@@ -1,7 +1,8 @@
 ;; Temporizador estilo Material You (circulo + botones cuadrados redondeados)
 ;; Uso: en eww.yuck agrega  (include "./timer.yuck")
 ;; Abrir: eww open timer
-;; Requiere: scripts/timer.sh (chmod +x). Opcional: libnotify (notify-send), paplay
+;; Requiere: scripts/timer.sh (chmod +x) e images/dots/ (ver scripts/gen-dot-rings.sh).
+;; Opcional: libnotify (notify-send), paplay
 ;;
 ;; Controles:
 ;;   play/pausa   = boton inferior izquierdo
@@ -35,6 +36,12 @@
 
     ;; circulo
     (box :class "tm-circle" :halign "center" :valign "center")
+
+    ;; anillo de 60 puntos: los encendidos son el tiempo restante
+    ;; (blanco en reposo/pausa, rojo mientras corre). Imagenes: images/dots/t60-*.svg
+    (image :class "tm-dots" :halign "center" :valign "center"
+           :path "${EWW_CONFIG_DIR}/images/dots/t60-${tm.running == 'yes' ? 'red' : 'white'}-${round(60 - tm.pct * 60 / 100, 0)}.svg"
+           :image-width 240 :image-height 240)
 
     ;; texto central; la rueda ajusta los minutos
     (eventbox :halign "center" :valign "center"
