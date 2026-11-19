@@ -67,6 +67,8 @@ $ph-red:     #D71921;
   font-size: 15px;
 }
 .ph-ev:hover .ph-btn { background-color: $ph-mute; }
+.ph-btn-on { background-color: $ph-red; }
+.ph-ev:hover .ph-btn-on { background-color: lighten($ph-red, 6%); }
 
 // Despliegue por hover: pestana siempre visible en el borde inferior
 .ph-hit { min-width: 150px; min-height: 18px; }

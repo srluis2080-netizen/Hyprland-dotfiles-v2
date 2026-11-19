@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Datos y acciones del movil via KDE Connect.
 # Uso: phone.sh status | ring | clip
-#   status -> JSON {"name","online","charge","charging","hot","icon"}
+#   status -> JSON {"name","online","charge","charging","hot","icon","mirror"}
 # Requiere: kdeconnect (daemon + kdeconnect-cli) y gdbus (glib2). Movil ya emparejado.
 
 DEVICE_ID=""    # opcional: fija el ID de tu movil (mira el ID con: kdeconnect-cli -l)
@@ -59,6 +59,9 @@ battery_prop() {
 
 json_escape() { printf '%s' "$1" | sed 's/\\/\\\\/g; s/"/\\"/g'; }
 
+# Pantalla compartida (scrcpy abierto)
+MIRROR=no; pgrep -x scrcpy >/dev/null 2>&1 && MIRROR=yes
+
 IFS='|' read -r ID NAME STATE <<< "$(find_device)"
 
 case "${1:-status}" in
@@ -68,7 +71,7 @@ esac
 
 NAME="${NAME:-Movil}"
 if [ "$STATE" != "paired and reachable" ]; then
-  printf '{"name":"%s","online":"no","charge":"--","charging":"no","hot":"no","icon":"phone-off"}\n' "$(json_escape "$NAME")"
+  printf '{"name":"%s","online":"no","charge":"--","charging":"no","hot":"no","icon":"phone-off","mirror":"%s"}\n' "$(json_escape "$NAME")" "$MIRROR"
   exit 0
 fi
 
@@ -78,7 +81,7 @@ charging=no; [[ "$chg_raw" == *true* ]] && charging=yes
 
 if ! [[ "$charge" =~ ^[0-9]+$ ]] || [ "$charge" -gt 100 ]; then
   # conectado, pero sin dato de bateria (plugin desactivado o ruta desconocida)
-  printf '{"name":"%s","online":"yes","charge":"--","charging":"%s","hot":"no","icon":"phone-white-0"}\n' "$(json_escape "$NAME")" "$charging"
+  printf '{"name":"%s","online":"yes","charge":"--","charging":"%s","hot":"no","icon":"phone-white-0","mirror":"%s"}\n' "$(json_escape "$NAME")" "$charging" "$MIRROR"
   exit 0
 fi
 
@@ -86,5 +89,5 @@ lit=$(( (charge + 9) / 10 ))
 hot=no; color=white
 if [ "$charging" = yes ] || [ "$charge" -le "$LOW" ]; then hot=yes; color=red; fi
 
-printf '{"name":"%s","online":"yes","charge":"%s","charging":"%s","hot":"%s","icon":"phone-%s-%s"}\n' \
-  "$(json_escape "$NAME")" "$charge" "$charging" "$hot" "$color" "$lit"
+printf '{"name":"%s","online":"yes","charge":"%s","charging":"%s","hot":"%s","icon":"phone-%s-%s","mirror":"%s"}\n' \
+  "$(json_escape "$NAME")" "$charge" "$charging" "$hot" "$color" "$lit" "$MIRROR"

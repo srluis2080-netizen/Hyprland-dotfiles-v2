@@ -5,17 +5,18 @@
 ;; Paquetes: kdeconnect (daemon + kdeconnect-cli) y glib2 (gdbus). Movil ya emparejado.
 ;;
 ;; La tira de LED del movil muestra la bateria (blanco normal, rojo si carga o esta baja).
-;; Botones: sonar el movil | enviar el portapapeles al movil | actualizar ahora
+;; Botones: compartir pantalla (scrcpy por WiFi; rojo = compartiendo) | enviar portapapeles | actualizar
+;; Requiere ademas: scripts/scrcpy-wifi.sh, adb (android-tools) y scrcpy. Vinculacion unica: scrcpy-wifi.sh pair
 ;; Hover: el widget se esconde abajo en el centro y se despliega al acercar el cursor a la pestana
 
-(defpoll phone :interval "30s"
-  :initial "{\"name\":\"Movil\",\"online\":\"no\",\"charge\":\"--\",\"charging\":\"no\",\"hot\":\"no\",\"icon\":\"phone-off\"}"
+(defpoll phone :interval "15s"
+  :initial "{\"name\":\"Movil\",\"online\":\"no\",\"charge\":\"--\",\"charging\":\"no\",\"hot\":\"no\",\"icon\":\"phone-off\",\"mirror\":\"no\"}"
   `$HOME/.config/eww/scripts/phone.sh status`)
 
 ;; ── Boton cuadrado redondeado (eventbox + box: el tema GTK no lo modifica) ──
-(defwidget ph-btn [icono cmd]
+(defwidget ph-btn [icono cmd activo]
   (eventbox :class "ph-ev" :cursor "pointer" :onclick cmd
-    (box :class "ph-btn"
+    (box :class "ph-btn ${activo ? 'ph-btn-on' : ''}"
       (label :class "ph-ico" :halign "center" :valign "center" :hexpand true :text icono))))
 
 (defwidget ph-widget []
@@ -36,11 +37,11 @@
            :halign "start"
         (label :text {phone.online != "yes" ? "DESCONECTADO" : phone.charging == "yes" ? "CARGANDO" : "CONECTADO"}))
       (box :class "ph-actions" :orientation "h" :space-evenly false :spacing 8 :halign "start"
-        (ph-btn :icono ""
-                :cmd "$HOME/.config/eww/scripts/phone.sh ring; ${EWW_CMD} poll phone")
-        (ph-btn :icono ""
+        (ph-btn :icono "" :activo {phone.mirror == "yes"}
+                :cmd "$HOME/.config/eww/scripts/scrcpy-wifi.sh toggle; ${EWW_CMD} poll phone")
+        (ph-btn :icono "" :activo false
                 :cmd "$HOME/.config/eww/scripts/phone.sh clip; ${EWW_CMD} poll phone")
-        (ph-btn :icono ""
+        (ph-btn :icono "" :activo false
                 :cmd "${EWW_CMD} poll phone")))))
 
 ;; ── Despliegue al pasar el cursor (abajo en el centro) ──
