@@ -10,7 +10,7 @@ Este repositorio ya viene organizado siguiendo la estructura real de `~/.config/
 
 ## Capturas de pantalla
 
-### Widgets de eww - Panel - Reloj - Clima
+### Widgets de eww - Panel - Reloj - Clima - Movil
 <img width="928" height="1152" alt="collaje-widgets" src="https://github.com/user-attachments/assets/090c5b4b-e069-45a5-991c-2df39119d9aa" />
 
 
