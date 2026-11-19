@@ -11,16 +11,17 @@ Este repositorio ya viene organizado siguiendo la estructura real de `~/.config/
 ## Capturas de pantalla
 
 ### Widgets de eww - Panel - Reloj - Clima
-<img width="1600" height="900" alt="captura" src="https://github.com/user-attachments/assets/2ea21ef3-9970-44b7-9785-a25eaa026a6c" /> 
+<img width="928" height="1152" alt="collaje-widgets" src="https://github.com/user-attachments/assets/090c5b4b-e069-45a5-991c-2df39119d9aa" />
 
-<img width="1600" height="900" alt="image" src="https://github.com/user-attachments/assets/06457d92-706a-4533-8771-e658daffede9" />
 
 ### Fastfetch, Kitty y Waybar
-<img width="1600" height="900" alt="image" src="https://github.com/user-attachments/assets/ce52af56-c210-4251-a69e-4619312ff454" />
+<img width="1600" height="900" alt="image" src="https://github.com/user-attachments/assets/ca1aed3e-2920-4a5a-b4b9-43376b1748bb" />
+
 
 
 ### Barra de estado
-<img width="1600" height="54" alt="image" src="https://github.com/user-attachments/assets/d00bd9a9-0776-4da5-9e43-89635133fd09" />
+<img width="1600" height="39" alt="image" src="https://github.com/user-attachments/assets/3969c8ee-8c85-4930-b2d6-89219197d720" />
+
 
 
 ### Centro de notificaciones (SwayNC)
